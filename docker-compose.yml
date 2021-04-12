@@ -1,0 +1,17 @@
+version: "3"
+services:
+  tuba:
+    build: ./app
+    ports:
+      - "80:80"
+    environment:
+      KAFKA_BROKER_URL: ${DOCKER_KAFKA_HOST}:9092
+      CLAIMS_TOPIC: queueing.claims
+      LEGIT_CLAIMS_TOPIC: streaming.claims.legit
+      FRAUD_CLAIMS_TOPIC: streaming.claims.fraud
+      TELEMATICS_TOPIC: streaming.driving.speed
+      TRANSACTIONS_PER_SECOND: 10
+networks:
+  default:
+    external:
+      name: kafka-network
